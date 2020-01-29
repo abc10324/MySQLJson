@@ -1,6 +1,8 @@
 package com.mj.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,12 @@ public class JsonService {
 	}
 	
 	public List<JsonTable> findByTag(List<String> tag){
-		List<JsonTable> resultList = repo.findByTag((new Gson()).toJson(tag));
+//		List<JsonTable> resultList = repo.findByTag((new Gson()).toJson(tag));
+		
+		Map<String,Object> where = new HashMap<>();
+		where.put("tags", (new Gson()).toJson(tag));
+		List<JsonTable> resultList = repo.search(where);
+		
 		
 		for(JsonTable json : resultList) {
 			json.parseJsonCol();
@@ -47,6 +54,18 @@ public class JsonService {
 	
 	public List<JsonTable> findAll(){
 		List<JsonTable> resultList = repo.findAll();
+		
+		for(JsonTable json : resultList) {
+			json.parseJsonCol();
+		}
+		
+		return resultList;
+	}
+	
+	public List<JsonTable> findAllByParams(Map<String,Object> params){
+		params.put("tags", (new Gson()).toJson(params.get("tags")));
+		List<JsonTable> resultList = repo.search(params);
+		
 		
 		for(JsonTable json : resultList) {
 			json.parseJsonCol();

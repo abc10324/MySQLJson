@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query>
+	<select id="JsonTable.search">
+		SELECT * FROM jsontable WHERE 1=1
+		AND (?#{#where['tags']} IS NULL OR JSON_CONTAINS(jsons -> '$.tags' , ?#{#where['tags']}))
+		AND (?#{#where['name']} IS NULL OR jsons ->> '$.name' = ?#{#where['name']})
+	</select>
+	
+	<select id="JsonTable.searchssss">
+		BBB
+		CCC
+	</select>
+</query>

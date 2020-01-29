@@ -17,6 +17,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.mj.util.SqlLoader;
+
 @Configuration
 @EnableWebMvc
 @EnableJpaRepositories(basePackages="com.mj.model")
@@ -94,6 +96,7 @@ public class SpringJavaConfig {
 	  factory.setJpaVendorAdapter(vendorAdapter);
 	  factory.setPackagesToScan("com.mj.model");
 	  factory.setDataSource(dataSource());
+	  factory.setMappingResources("com/mj/model/mapper/JsonTable.xml");
 	    
 	  return factory;
 	}

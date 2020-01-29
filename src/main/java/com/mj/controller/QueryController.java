@@ -1,7 +1,11 @@
 package com.mj.controller;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +41,14 @@ public class QueryController {
 		System.out.println("names : " + names);
 		
 		return names != null ? jsonService.findByNames(names) : jsonService.findAll();
+	}
+	
+	@PostMapping("/JsonTable/Params")
+	public Object queryAllByParams(@RequestBody Map<String,Object> params) {
+		
+		System.out.println("params : " + params);
+		
+		return jsonService.findAllByParams(params);
 	}
 	
 	@PostMapping("/JsonTable")
